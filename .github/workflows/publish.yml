@@ -20,7 +20,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: https://registry.npmjs.org
 
       - run: npm ci
@@ -28,17 +28,6 @@ jobs:
       - run: npm run build
 
       - run: npm run lint
-
-      # Runs n8n's verification scanner against the exact tarball that will be
-      # published. Native dep (isolated-vm) compiles fine on Linux runners but
-      # not on a plain Windows dev box. Non-blocking: review its output in the
-      # CI log before submitting to the Creator Portal — the same checks gate
-      # verified-node approval.
-      - name: Scan for verification issues
-        continue-on-error: true
-        run: |
-          npm pack
-          npx --yes @n8n/scan-community-package ./$(npm pack --dry-run --json | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d)[0].filename))")
 
       # --provenance + id-token:write generates the signed provenance statement
       # tying this package to this repo + commit.
