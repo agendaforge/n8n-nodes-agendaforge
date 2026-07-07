@@ -1,0 +1,27 @@
+name: CI
+
+# Build-check on Node 22 (no publish). Exercises the same npm ci -> build -> lint
+# chain as publish.yml, including the native `isolated-vm` compile, so failures are
+# caught on every push/PR instead of only at release time.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: npm run lint
