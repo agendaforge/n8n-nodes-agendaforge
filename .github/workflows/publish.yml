@@ -24,7 +24,10 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: npm
 
-      - run: npm ci
+      # --ignore-scripts skips native install builds. isolated-vm (pulled in only
+      # transitively via n8n-workflow) is never used here and requires Node 22+ to
+      # compile; building it just to run tsc/eslint is unnecessary and fragile.
+      - run: npm ci --ignore-scripts
 
       - run: npm run build
 
