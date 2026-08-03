@@ -11,7 +11,7 @@ export class AgendaForge implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'AgendaForge',
     name: 'agendaForge',
-    icon: 'file:agendaForge.svg',
+    icon: { light: 'file:agendaForge.light.svg', dark: 'file:agendaForge.dark.svg' },
     group: ['transform'],
     version: 1,
     usableAsTool: true,

@@ -20,7 +20,7 @@ export class AgendaForgeTrigger implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'AgendaForge Trigger',
     name: 'agendaForgeTrigger',
-    icon: 'file:agendaForge.svg',
+    icon: { light: 'file:agendaForge.light.svg', dark: 'file:agendaForge.dark.svg' },
     group: ['trigger'],
     version: 1,
     usableAsTool: true,
@@ -109,6 +109,14 @@ export class AgendaForgeTrigger implements INodeType {
             },
           );
         } catch (error) {
+          // Surface the failure instead of hiding it — a hook left registered on
+          // AgendaForge keeps delivering to a webhook URL that is no longer live.
+          this.logger.error(
+            `AgendaForge Trigger: failed to unsubscribe webhook ${webhookData.hookId as string}: ${
+              (error as Error).message
+            }`,
+            { error },
+          );
           return false;
         }
 

@@ -13,7 +13,7 @@ export class AgendaForgeApi implements ICredentialType {
   displayName = 'AgendaForge API';
 
   // Shipped alongside the compiled credential by gulp's copyIcons task.
-  icon: Icon = 'file:agendaForge.svg';
+  icon: Icon = { light: 'file:agendaForge.light.svg', dark: 'file:agendaForge.dark.svg' };
 
   documentationUrl = 'https://agendaforge.app/docs/n8n';
 
