@@ -38,6 +38,17 @@ module.exports = {
       parserOptions: { project: ['./tsconfig.json'], sourceType: 'module' },
       plugins: ['eslint-plugin-n8n-nodes-base'],
       extends: ['plugin:n8n-nodes-base/nodes'],
+      rules: {
+        // These two want the legacy `inputs: ['main']` / `outputs: ['main']`
+        // string literals. @n8n/scan-community-package — the gate for verified
+        // community nodes — enforces the opposite via its
+        // `@n8n/community-nodes/node-connection-type-literal` rule, which
+        // requires NodeConnectionTypes.Main. The scanner wins; these are the
+        // stale side of a conflict eslint-plugin-n8n-nodes-base@1.16.7 (latest)
+        // has not caught up with.
+        'n8n-nodes-base/node-class-description-inputs-wrong-regular-node': 'off',
+        'n8n-nodes-base/node-class-description-outputs-wrong': 'off',
+      },
     },
   ],
 };

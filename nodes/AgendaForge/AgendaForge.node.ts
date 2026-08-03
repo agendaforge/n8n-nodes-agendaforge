@@ -1,4 +1,4 @@
-import { INodeType, INodeTypeDescription } from 'n8n-workflow';
+import { INodeType, INodeTypeDescription, NodeConnectionTypes } from 'n8n-workflow';
 import { AGENDAFORGE_BASE_URL } from './constants';
 
 /**
@@ -14,11 +14,12 @@ export class AgendaForge implements INodeType {
     icon: 'file:agendaForge.svg',
     group: ['transform'],
     version: 1,
+    usableAsTool: true,
     subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
     description: 'Create records in AgendaForge',
     defaults: { name: 'AgendaForge' },
-    inputs: ['main'],
-    outputs: ['main'],
+    inputs: [NodeConnectionTypes.Main],
+    outputs: [NodeConnectionTypes.Main],
     credentials: [{ name: 'agendaForgeApi', required: true }],
     requestDefaults: {
       baseURL: `${AGENDAFORGE_BASE_URL}/api/v1`,

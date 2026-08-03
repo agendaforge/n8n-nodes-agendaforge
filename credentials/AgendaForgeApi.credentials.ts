@@ -2,6 +2,7 @@ import {
   IAuthenticateGeneric,
   ICredentialTestRequest,
   ICredentialType,
+  Icon,
   INodeProperties,
 } from 'n8n-workflow';
 import { AGENDAFORGE_BASE_URL } from '../nodes/AgendaForge/constants';
@@ -10,6 +11,9 @@ export class AgendaForgeApi implements ICredentialType {
   name = 'agendaForgeApi';
 
   displayName = 'AgendaForge API';
+
+  // Shipped alongside the compiled credential by gulp's copyIcons task.
+  icon: Icon = 'file:agendaForge.svg';
 
   documentationUrl = 'https://agendaforge.app/docs/n8n';
 

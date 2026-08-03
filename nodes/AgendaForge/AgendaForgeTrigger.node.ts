@@ -5,6 +5,7 @@ import {
   INodeTypeDescription,
   IWebhookFunctions,
   IWebhookResponseData,
+  NodeConnectionTypes,
 } from 'n8n-workflow';
 import { AGENDAFORGE_BASE_URL } from './constants';
 
@@ -22,11 +23,12 @@ export class AgendaForgeTrigger implements INodeType {
     icon: 'file:agendaForge.svg',
     group: ['trigger'],
     version: 1,
+    usableAsTool: true,
     subtitle: '={{$parameter["event"]}}',
     description: 'Starts the workflow when an AgendaForge event occurs',
     defaults: { name: 'AgendaForge Trigger' },
     inputs: [],
-    outputs: ['main'],
+    outputs: [NodeConnectionTypes.Main],
     credentials: [{ name: 'agendaForgeApi', required: true }],
     webhooks: [
       {
