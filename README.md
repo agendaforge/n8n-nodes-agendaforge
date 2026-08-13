@@ -24,9 +24,8 @@ You need an AgendaForge **API key**:
 
 1. In AgendaForge, open **Event Settings → Integrations → n8n**.
 2. Click **Generate key** and copy the value (starts with `afk_live_`, shown once).
-3. In n8n, create an **AgendaForge API** credential and paste the key. Leave **Base URL** as
-   the default (`https://api.agendaforge.com`) unless you are on a dedicated/self-hosted
-   deployment.
+3. In n8n, create an **AgendaForge API** credential and paste the key. That is the only
+   field — the API endpoint is built into the node.
 
 The credential is validated against `GET /api/v1/me`, which labels it with your
 organization name.
@@ -60,22 +59,6 @@ Events: `contact.added/updated/removed`, `session.added/updated/removed`,
 
 The delivered body is `{ event, payload, timestamp }` — the record fields live under
 `payload`.
-
-## Repository & publishing
-
-This package currently lives inside the AgendaForge monorepo at
-`integrations/n8n-nodes-agendaforge/`, **outside** the Turborepo workspaces
-(`apps/*`, `packages/*`) so it has an independent build/lint/publish lifecycle and is not
-pulled into the app's type-check or CI.
-
-**Before publishing, split this folder into its own public Git repository** (n8n
-verification requires a public repo whose source matches the npm package). The bundled
-[`.github/workflows/publish.yml`](.github/workflows/publish.yml) is written for that
-standalone repo — it sits at the repo root there and runs `npm publish --provenance` on a
-GitHub Release. While the folder remains nested in the monorepo, that workflow is **inert**
-(GitHub only reads workflows from the repository-root `.github/workflows/`). Do not move it
-to the monorepo root — we do not want the app's CI publishing this package; it gets its own
-repo + CI.
 
 ## Compatibility
 
